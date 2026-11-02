@@ -17,9 +17,11 @@ export function App() {
   const [screen, setScreen] = useState<string>('home');
   const [plan, setPlan] = useState<Phase[] | null>(null);
 
+  const version = <div className="version">{import.meta.env.DEV ? 'dev' : __APP_VERSION__}</div>;
+
   if (plan) return <Session plan={plan} settings={settings} onExit={() => setPlan(null)} />;
   if (screen === fourSevenEight.id) {
-    return <FourSevenEightSetup onBack={() => setScreen('home')} onStart={setPlan} />;
+    return <><FourSevenEightSetup onBack={() => setScreen('home')} onStart={setPlan} />{version}</>;
   }
-  return <Home techniques={techniques} settings={settings} onChange={setSettings} onSelect={setScreen} />;
+  return <><Home techniques={techniques} settings={settings} onChange={setSettings} onSelect={setScreen} />{version}</>;
 }

@@ -1,10 +1,23 @@
+import { execSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
+function gitHash() {
+  try {
+    return execSync('git rev-parse --short HEAD', { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
+  } catch {
+    return 'unknown';
+  }
+}
+const pkg = JSON.parse(readFileSync('package.json', 'utf-8'));
+const builtAt = new Date().toISOString().slice(0, 16).replace('T', ' ');
+
 // base './' lets the app work from a GitHub Pages sub-path or any other host.
 export default defineConfig({
   base: './',
+  define: { __APP_VERSION__: JSON.stringify(`v${pkg.version} · ${gitHash()} · ${builtAt} UTC`) },
   plugins: [
     react(),
     VitePWA({
