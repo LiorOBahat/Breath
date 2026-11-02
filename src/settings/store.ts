@@ -5,12 +5,13 @@ export type VoiceChoice = 'woman' | 'man' | 'off';
 export interface GeneralSettings {
   voice: VoiceChoice;
   encouragement: boolean;
+  counting: boolean;
   haptics: boolean;
   keepAwake: boolean;
 }
 
 const KEY = 'breath.settings.v1';
-const defaults: GeneralSettings = { voice: 'woman', encouragement: true, haptics: true, keepAwake: true };
+const defaults: GeneralSettings = { voice: 'woman', encouragement: true, counting: true, haptics: true, keepAwake: true };
 
 function load(): GeneralSettings {
   try {

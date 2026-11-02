@@ -33,6 +33,7 @@ export function Home({ techniques, settings, onChange, onSelect }: Props) {
             <option value="off">ללא קול</option>
           </select>
         </label>
+        <label><input type="checkbox" checked={settings.counting} onChange={(e) => set('counting', e.target.checked)} /> ספירה בקול</label>
         <label><input type="checkbox" checked={settings.encouragement} onChange={(e) => set('encouragement', e.target.checked)} /> משפטי עידוד</label>
         <label><input type="checkbox" checked={settings.haptics} onChange={(e) => set('haptics', e.target.checked)} /> רטט (אנדרואיד)</label>
         <label><input type="checkbox" checked={settings.keepAwake} onChange={(e) => set('keepAwake', e.target.checked)} /> השאר מסך דלוק</label>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { positionAt, totalSeconds } from '../engine/plan';
 import type { Phase } from '../engine/types';
 import type { GeneralSettings } from '../settings/store';
@@ -9,7 +9,6 @@ interface Props { plan: Phase[]; settings: GeneralSettings; onExit: () => void }
 export function Session({ plan, settings, onExit }: Props) {
   const [elapsed, setElapsed] = useState(0);
   const [paused, setPaused] = useState(false);
-  const lastIndex = useRef(-1);
   const total = totalSeconds(plan);
   const pos = positionAt(plan, elapsed);
 
@@ -28,14 +27,18 @@ export function Session({ plan, settings, onExit }: Props) {
   // Closing line when the plan finishes.
   useEffect(() => { if (!pos) playCue(settings.voice, 'done'); }, [!pos]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Cue on each new phase.
+  // Voice: the phase word at its start, then the count (2, 3, ...) each second.
+  const tick = pos ? `${pos.index}:${Math.floor(pos.into)}` : 'end';
   useEffect(() => {
-    if (pos && pos.index !== lastIndex.current) {
-      lastIndex.current = pos.index;
+    if (!pos) return;
+    const sec = Math.floor(pos.into);
+    if (sec === 0) {
       playCue(settings.voice, pos.phase.cue);
       vibrate(settings.haptics);
+    } else if (settings.counting && pos.phase.kind !== 'rest') {
+      playCue(settings.voice, `n${sec + 1}`);
     }
-  }, [pos?.index]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [tick]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!settings.keepAwake) return;
