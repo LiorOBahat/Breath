@@ -16,11 +16,12 @@ const CANDIDATES = {
 };
 
 const TEXT = "מתחילים. שבו בנוחות, וסגרו את העיניים. שאיפה... החזקה... נשיפה...";
-const NIQQUD = "מַתְחִילִים. שְׁבוּ בְּנוֹחוּת, וְסִגְרוּ אֶת הָעֵינַיִם. שְׁאִיפָה... הַחְזָקָה... נְשִׁיפָה...";
+const V4 = { modelId: "eleven_v4", languageCode: "he", voiceSettings: { stability: 0.85, similarityBoost: 0.6 } };
+const V3 = { modelId: "eleven_v3", languageCode: "he", voiceSettings: { stability: 0.5 } };
 const VARIANTS = {
-  "v4-soft": { text: `[softly] ${TEXT}`, modelId: "eleven_v4", languageCode: "he", voiceSettings: { stability: 0.85, similarityBoost: 0.6 } },
-  "v3-soft": { text: `[softly] ${TEXT}`, modelId: "eleven_v3", languageCode: "he", voiceSettings: { stability: 0.5 } },
-  "v2-niqqud-slow": { text: NIQQUD, modelId: "eleven_multilingual_v2", voiceSettings: { stability: 0.8, similarityBoost: 0.6, style: 0, speed: 0.85 } },
+  "v4-calm": { text: `[calm] ${TEXT}`, ...V4 },
+  "v4-gentle-soothing": { text: `[gentle, soothing, calm voice] ${TEXT}`, ...V4 },
+  "v3-calm": { text: `[calm] ${TEXT}`, ...V3 },
 };
 
 const client = new ElevenLabsClient();

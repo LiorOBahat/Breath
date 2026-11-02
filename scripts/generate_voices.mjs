@@ -17,10 +17,12 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const LINES = JSON.parse(readFileSync(join(ROOT, "scripts", "voice_lines.json"), "utf-8"));
 
 const V4 = { modelId: "eleven_v4", languageCode: "he", voiceSettings: { stability: 0.85, similarityBoost: 0.6 } };
-const V3 = { modelId: "eleven_v3", languageCode: "he", voiceSettings: { stability: 0.5 } };
+
+// Delivery tag: calm and gentle, not a whisper.
+const TAG = "[gentle, soothing, calm voice]";
 
 const PACKS = {
-  lily: { voiceId: "pFZP5JQG7iQjIQuC4Bku", ...V3 },
+  lily: { voiceId: "pFZP5JQG7iQjIQuC4Bku", ...V4 },
   sarah: { voiceId: "EXAVITQu4vr4xnSDxMaL", ...V4 },
   brian: { voiceId: "nPczCjzI2devNBz1zQrb", ...V4 },
   george: { voiceId: "JBFqnCBsd6RMkjVDRZzb", ...V4 },
@@ -33,7 +35,7 @@ for (const [pack, { voiceId, ...opts }] of Object.entries(PACKS)) {
   const dir = join(ROOT, "public", "voices", pack);
   mkdirSync(dir, { recursive: true });
   for (const [cue, text] of Object.entries(LINES)) {
-    const audio = await client.textToSpeech.convert(voiceId, { text: `[softly] ${text}`, ...opts });
+    const audio = await client.textToSpeech.convert(voiceId, { text: `${TAG} ${text}`, ...opts });
     const file = join(dir, `${cue}.mp3`);
     await finished(Readable.fromWeb(audio).pipe(createWriteStream(file)));
     console.log("wrote", `public/voices/${pack}/${cue}.mp3`);
