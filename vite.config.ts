@@ -9,7 +9,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      workbox: { globPatterns: ['**/*.{js,css,html,svg,png,mp3}'] },
+      workbox: { globPatterns: ['**/*.{js,css,html,svg,png,mp3,woff2}'] },
       manifest: {
         name: 'נשימה',
         short_name: 'נשימה',

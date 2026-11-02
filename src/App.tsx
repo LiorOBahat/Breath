@@ -8,8 +8,8 @@ import type { Phase } from './engine/types';
 
 const techniques: TechniqueCard[] = [
   { id: fourSevenEight.id, name: fourSevenEight.name, summary: fourSevenEight.summary, ready: true },
-  { id: 'tasanama', name: 'טה-סה-נה-מה', summary: '', ready: false },
   { id: 'wimhof', name: 'וים הוף', summary: '', ready: false },
+  { id: 'tasanama', name: 'טה-סה-נה-מה', summary: '', ready: false },
 ];
 
 export function App() {
