@@ -1,5 +1,8 @@
 import type { Phase } from './types';
 
+/** Playback speed: a plan "second" (one spoken count) lasts 1 / COUNT_TEMPO real seconds. */
+export const COUNT_TEMPO = 1.1;
+
 export function totalSeconds(plan: Phase[]): number {
   return plan.reduce((sum, p) => sum + p.seconds, 0);
 }

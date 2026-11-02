@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { positionAt, totalSeconds } from '../engine/plan';
+import { COUNT_TEMPO, positionAt, totalSeconds } from '../engine/plan';
 import type { Phase } from '../engine/types';
 import type { GeneralSettings } from '../settings/store';
-import { playCue, requestWakeLock, vibrate } from '../audio';
+import { playCue, preloadVoice, requestWakeLock, vibrate } from '../audio';
 
 interface Props { plan: Phase[]; settings: GeneralSettings; onExit: () => void }
 
@@ -18,11 +18,13 @@ export function Session({ plan, settings, onExit }: Props) {
     let last = performance.now();
     const id = setInterval(() => {
       const now = performance.now();
-      setElapsed((e) => e + (now - last) / 1000);
+      setElapsed((e) => e + ((now - last) / 1000) * COUNT_TEMPO);
       last = now;
     }, 100);
     return () => clearInterval(id);
   }, [paused]);
+
+  useEffect(() => { preloadVoice(settings.voice); }, [settings.voice]);
 
   // Closing line when the plan finishes.
   useEffect(() => { if (!pos) playCue(settings.voice, 'done'); }, [!pos]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -67,8 +69,8 @@ export function Session({ plan, settings, onExit }: Props) {
     <main className="session">
       <div className="circle" style={{ transform: `scale(${scale})` }} />
       <div className="label">{pos.phase.label}</div>
-      <div className="count">{Math.ceil(pos.remaining)}</div>
-      <div className="meta">מחזור {pos.phase.cycle} · {Math.max(0, Math.ceil(total - elapsed))} שנ׳ נותרו</div>
+      <div className="count">{Math.floor(pos.into) + 1}</div>
+      <div className="meta">מחזור {pos.phase.cycle} · {Math.max(0, Math.ceil((total - elapsed) / COUNT_TEMPO))} שנ׳ נותרו</div>
       <div className="row">
         <button onClick={() => setPaused((p) => !p)}>{paused ? 'המשך' : 'השהה'}</button>
         <button onClick={onExit}>סיום</button>

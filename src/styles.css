@@ -18,6 +18,12 @@ body:has(.home) { background:radial-gradient(ellipse at 50% 35%, #17304a 0%, #0e
 @keyframes glow { 50% { box-shadow:0 0 64px #4aa3c7aa, inset 0 0 30px #b5e6f744; } }
 @media (prefers-reduced-motion: reduce) { .bubble.ready { animation:none; } }
 .settings-btn { display:inline-flex; align-items:center; gap:6px; margin-top:20px; padding:6px 18px; border-radius:999px; border:1px solid #8fb6e077; background:#ffffff08; color:var(--fg); font-size:.85rem; cursor:pointer; }
+.setup { padding-top:56px; }
+.setup > .link { position:fixed; top:calc(14px + env(safe-area-inset-top)); inset-inline-start:16px; z-index:2; font-size:1.05rem; }
+.setup-head { display:flex; align-items:center; justify-content:space-between; gap:16px; margin:12px 0 8px; }
+.setup-head p { margin:0; }
+.setup-head .bubble { --size:120px; flex:none; margin:0; cursor:default; }
+.setup-head .bubble strong { font-size:1.3rem; }
 .sheet-backdrop { position:fixed; inset:0; background:#000a; display:flex; align-items:flex-end; justify-content:center; }
 .sheet { width:100%; max-width:520px; max-height:90dvh; overflow:auto; background:var(--card); border-radius:20px 20px 0 0; padding:8px 20px calc(20px + env(safe-area-inset-bottom)); }
 .sheet h2 { color:var(--fg); }
