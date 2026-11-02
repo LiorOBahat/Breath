@@ -13,8 +13,16 @@ export function FourSevenEightSetup({ onBack, onStart }: Props) {
     <main className="setup">
       <button className="link" onClick={onBack}>← חזרה</button>
       <div className="setup-head">
-        <p>{fourSevenEight.summary}</p>
         <h1 className="bubble ready"><strong>{fourSevenEight.name}</strong></h1>
+        <div className="setup-text">
+          <p>{fourSevenEight.summary}</p>
+          <p>בכל מחזור:</p>
+          <ol>
+            <li>שואפים אוויר דרך האף במשך 4 שניות.</li>
+            <li>עוצרים את הנשימה במשך 7 שניות.</li>
+            <li>נושפים את כל האוויר מהפה במשך 8 שניות.</li>
+          </ol>
+        </div>
       </div>
       <label>
         מספר מחזורים: {cycles} (כ-{mins} דקות)

@@ -18,15 +18,25 @@ body:has(.home) { background:radial-gradient(ellipse at 50% 35%, #17304a 0%, #0e
 @keyframes glow { 50% { box-shadow:0 0 64px #4aa3c7aa, inset 0 0 30px #b5e6f744; } }
 @media (prefers-reduced-motion: reduce) { .bubble.ready { animation:none; } }
 .settings-btn { display:inline-flex; align-items:center; gap:6px; margin-top:20px; padding:6px 18px; border-radius:999px; border:1px solid #8fb6e077; background:#ffffff08; color:var(--fg); font-size:.85rem; cursor:pointer; }
-.setup { padding-top:56px; }
+.setup { padding-top:44px; }
 .setup > .link { position:fixed; top:calc(14px + env(safe-area-inset-top)); inset-inline-start:16px; z-index:2; font-size:1.05rem; }
-.setup-head { display:flex; align-items:center; justify-content:space-between; gap:16px; margin:12px 0 8px; }
-.setup-head p { margin:0; }
-.setup-head .bubble { --size:min(56vw,300px); flex:none; margin:0; margin-inline-end:calc(-8px - max(0px, (100vw - 520px) / 2)); cursor:default; }
+.setup-head { margin:0 0 8px; }
+.setup-head .bubble { --size:min(38vw,240px); float:left; shape-outside:circle(50%); margin:0 0 8px 12px; cursor:default; }
 .setup-head .bubble strong { font-size:1.8rem; }
+.setup-text { font-family:"Playpen Sans Hebrew", cursive; font-size:.8rem; line-height:1.7; text-align:start; color:#a9dcf2; }
+.setup-text p { margin:0 0 8px; }
+.setup-text ol { margin:0; padding-inline-start:1.4em; }
+/* Wide screens: bubble sits at the left edge of the screen, text stays in the column. */
+@media (min-width:760px) {
+  .setup { margin-inline:0 auto; padding-inline:32px; }
+  .setup-head { min-height:256px; }
+  .setup-head .bubble { --size:240px; position:absolute; left:32px; top:52px; float:none; margin:0; }
+  .setup-text { max-width:min(456px, calc(100vw - 80px - 240px)); }
+}
 .setup label { font-size:.9rem; }
 .setup input[type=range] { width:55%; padding:0; }
-.setup .primary { margin-top:48px; }
+.setup { padding-bottom:120px; }
+.setup .primary { position:fixed; left:50%; transform:translateX(-50%); bottom:calc(28px + env(safe-area-inset-bottom)); width:min(320px, calc(100vw - 32px)); }
 .version { position:fixed; left:12px; bottom:calc(8px + env(safe-area-inset-bottom)); direction:ltr; font-size:.7rem; color:var(--muted); opacity:.6; pointer-events:none; }
 .sheet-backdrop { position:fixed; inset:0; background:#000a; display:flex; align-items:flex-end; justify-content:center; }
 .sheet { width:100%; max-width:520px; max-height:90dvh; overflow:auto; background:var(--card); border-radius:20px 20px 0 0; padding:8px 20px calc(20px + env(safe-area-inset-bottom)); }

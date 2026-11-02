@@ -7,7 +7,7 @@ export interface FourSevenEightSettings {
 export const fourSevenEight: Technique<FourSevenEightSettings> = {
   id: '478',
   name: '4-7-8',
-  summary: 'שאיפה 4 שניות, החזקה 7 שניות, נשיפה 8 שניות',
+  summary: 'שיטת הנשימה 4-7-8 היא טכניקת הרגעה מבית ד"ר אנדרו וייל, הפועלת כ"חומר הרגעה טבעי" למערכת העצבים.',
   defaults: { cycles: 4 },
   buildPlan({ cycles }) {
     const plan: Phase[] = [{ kind: 'rest', seconds: 6, cue: 'start', label: 'התכוננו' }];
