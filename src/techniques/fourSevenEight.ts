@@ -1,4 +1,4 @@
-import type { Technique } from '../engine/types';
+import type { Phase, Technique } from '../engine/types';
 
 export interface FourSevenEightSettings {
   cycles: number;
@@ -10,7 +10,7 @@ export const fourSevenEight: Technique<FourSevenEightSettings> = {
   summary: 'שאיפה 4, החזקה 7, נשיפה 8 – להרגעה ולהירדמות',
   defaults: { cycles: 4 },
   buildPlan({ cycles }) {
-    const plan = [];
+    const plan: Phase[] = [{ kind: 'rest', seconds: 6, cue: 'start', label: 'התכוננו' }];
     for (let c = 1; c <= cycles; c++) {
       plan.push(
         { kind: 'inhale' as const, seconds: 4, cue: 'inhale', label: 'שאיפה', cycle: c },

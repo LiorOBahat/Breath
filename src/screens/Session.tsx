@@ -25,6 +25,9 @@ export function Session({ plan, settings, onExit }: Props) {
     return () => clearInterval(id);
   }, [paused]);
 
+  // Closing line when the plan finishes.
+  useEffect(() => { if (!pos) playCue(settings.voice, 'done'); }, [!pos]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Cue on each new phase.
   useEffect(() => {
     if (pos && pos.index !== lastIndex.current) {
