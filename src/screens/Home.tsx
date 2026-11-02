@@ -1,4 +1,4 @@
-import type { GeneralSettings } from '../settings/store';
+import { VOICES, type GeneralSettings } from '../settings/store';
 
 export interface TechniqueCard { id: string; name: string; summary: string; ready: boolean }
 
@@ -28,8 +28,7 @@ export function Home({ techniques, settings, onChange, onSelect }: Props) {
         <label>
           קול מנחה
           <select value={settings.voice} onChange={(e) => set('voice', e.target.value as GeneralSettings['voice'])}>
-            <option value="woman">אישה</option>
-            <option value="man">גבר</option>
+            {VOICES.map((v) => <option key={v.id} value={v.id}>{v.label}</option>)}
             <option value="off">ללא קול</option>
           </select>
         </label>
