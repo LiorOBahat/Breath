@@ -59,11 +59,11 @@ export function Session({ plan, settings, onExit }: Props) {
     );
   }
 
-  // Circle grows on inhale, shrinks on exhale, holds size otherwise.
+  // Circle grows on inhale, shrinks on exhale; a hold keeps the size it had (full after inhale, empty after exhale).
   const f = pos.into / pos.phase.seconds;
   const scale = pos.phase.kind === 'inhale' ? 0.5 + 0.5 * f
     : pos.phase.kind === 'exhale' ? 1 - 0.5 * f
-    : pos.phase.kind === 'hold' ? 1 : 0.5;
+    : pos.phase.kind === 'hold' ? (plan[pos.index - 1]?.kind === 'exhale' ? 0.5 : 1) : 0.5;
 
   return (
     <main className="session">
